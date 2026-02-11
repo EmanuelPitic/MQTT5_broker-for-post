@@ -1,80 +1,79 @@
-
 # MQTT5 Broker
 
-Acest proiect implementează un broker MQTT5 simplu care gestionează conexiunile clienților, autentificarea și menținerea conexiunilor printr-un server SQL pentru stocarea datelor clientului. Codul este structurat în mai multe module, fiecare având funcționalități specifice pentru decodificarea și crearea pachetelor MQTT, precum și gestionarea conexiunilor și autentificării.
+This project implements a simple MQTT5 broker that manages client connections, authentication, and session persistence through an SQL server for storing client data. The code is structured into multiple modules, each with specific functionalities for decoding and creating MQTT packets, as well as managing connections and authentication.
 
-## Structura Proiectului
+## Project Structure
 
-### Fișierele Principale
+### Main Files
 
-- **`server.py`**: Modulul principal care implementează serverul MQTT5. Gestionează conexiunile clienților, interacțiunea cu aceștia și comunicarea cu baza de date.
-  - [Explicație detaliată pentru `server.py`](Docs/server.md)
+- **`server.py`**: The main module that implements the MQTT5 server. Manages client connections, client interactions, and database communication.
+  - [Detailed explanation for `server.py`](Docs/server.md)
 
-- **`gui.py`**: Interfața grafică pentru brokerul MQTT. Permite pornirea și oprirea serverului, precum și monitorizarea conexiunilor, mesajelor și altor informații relevante.
-  - [Explicație detaliată pentru `gui.py`](Docs/gui.md)
+- **`gui.py`**: The graphical interface for the MQTT broker. Allows starting and stopping the server, as well as monitoring connections, messages, and other relevant information.
+  - [Detailed explanation for `gui.py`](Docs/gui.md)
 
-- **`sqlServer.py`**: Modulul care gestionează operațiile legate de baza de date, incluzând autentificarea, stocarea și actualizarea informațiilor despre clienți în baza de date SQLite.
-  - [Explicație detaliată pentru `sqlServer.py`](Docs/sqlServer.md)
+- **`sqlServer.py`**: The module that manages database-related operations, including authentication, storage, and updating of client information in the SQLite database.
+  - [Detailed explanation for `sqlServer.py`](Docs/sqlServer.md)
 
-- **`decoder.py`**: Implementează clasa `MQTTDecoder`, care este utilizată pentru decodificarea pachetelor MQTT primite de la clienți, cum ar fi `CONNECT`, `PINGREQ` și `DISCONNECT`.
-  - [Explicație detaliată pentru `decoder.py`](Docs/decoder.md)
+- **`decoder.py`**: Implements the `MQTTDecoder` class, which is used for decoding MQTT packets received from clients, such as `CONNECT`, `PINGREQ`, and `DISCONNECT`.
+  - [Detailed explanation for `decoder.py`](Docs/decoder.md)
 
-- **`packet_creator.py`**: Conține funcțiile necesare pentru crearea pachetelor MQTT, cum ar fi `CONNACK`, `PINGRESP` și `DISCONNECT`, ce sunt trimise ca răspuns către clienți.
-  - [Explicație detaliată pentru `packet_creator.py`](Docs/packet_creator.md)
+- **`packet_creator.py`**: Contains the necessary functions for creating MQTT packets, such as `CONNACK`, `PINGRESP`, and `DISCONNECT`, which are sent as responses to clients.
+  - [Detailed explanation for `packet_creator.py`](Docs/packet_creator.md)
 
-## Cerințe
+## Requirements
 
 - Python 3.x
-- Biblioteca `socket` (inclusă nativ în Python)
-- Biblioteca `struct` (inclusă nativ în Python)
-- Biblioteca `PyQt5` pentru interfața grafică
+- `socket` library (included natively in Python)
+- `struct` library (included natively in Python)
+- `PyQt5` library for the graphical interface
 
-## Configurare Server
+## Server Configuration
 
-Serverul este configurat să ruleze pe adresa IP `127.0.0.1` (localhost) și pe portul `5000`. Aceste valori pot fi modificate în fișierul `server.py`.
+The server is configured to run on IP address `127.0.0.1` (localhost) and port `5000`. These values can be modified in the `server.py` file.
 
-## Utilizare
+## Usage
 
-1. **Pornirea Serverului**:
-   Pentru a porni serverul MQTT5 Broker folosind interfața grafică, rulează comanda:
-   ```bash
+1. **Starting the Server**:
+   To start the MQTT5 Broker server using the graphical interface, run the command:
+```bash
    python gui.py
-   ```
-   Din interfața grafică, apasă butonul **Start Server** pentru a iniția serverul.
+```
+   From the graphical interface, press the **Start Server** button to initialize the server.
 
-2. **Monitorizarea Conexiunilor și Mesajelor**:
-   - **Tabul Topic History**: Afișează istoricul topicurilor utilizate.
-   - **Tabul Last 10 Messages**: Arată ultimele 10 mesaje publicate pe un topic selectat.
-   - **Tabul Connected Clients**: Listează clienții conectați și abonamentele acestora.
-   - **Tabul Subscribed Clients**: Prezintă clienții abonați pentru fiecare topic.
-   - **Tabul QoS 1/2 Messages**: Afișează mesajele publicate cu QoS 1 și 2.
+2. **Monitoring Connections and Messages**:
+   - **Topic History Tab**: Displays the history of topics used.
+   - **Last 10 Messages Tab**: Shows the last 10 messages published on a selected topic.
+   - **Connected Clients Tab**: Lists connected clients and their subscriptions.
+   - **Subscribed Clients Tab**: Presents subscribed clients for each topic.
+   - **QoS 1/2 Messages Tab**: Displays messages published with QoS 1 and 2.
 
-3. **Oprirea Serverului**:
-   Din interfața grafică, apasă butonul **Stop Server** pentru a opri serverul.
+3. **Stopping the Server**:
+   From the graphical interface, press the **Stop Server** button to stop the server.
 
-## Detalii Despre Module
+## Module Details
 
 ### server.py
 
-`server.py` este modulul principal care gestionează conexiunile clienților, autentificarea acestora și procesarea pachetelor MQTT folosind `decoder.py` și `packet_creator.py`. Mai multe informații pot fi găsite în [documentația pentru `server.py`](Docs/server.md).
+`server.py` is the main module that manages client connections, client authentication, and MQTT packet processing using `decoder.py` and `packet_creator.py`. More information can be found in the [documentation for `server.py`](Docs/server.md).
 
 ### gui.py
 
-`gui.py` implementează interfața grafică a brokerului, permițind pornirea și oprirea serverului, precum și vizualizarea și gestionarea datelor într-un mod intuitiv. Pentru mai multe detalii, accesează [documentația pentru `gui.py`](Docs/gui.md).
+`gui.py` implements the broker's graphical interface, allowing the server to be started and stopped, as well as viewing and managing data in an intuitive way. For more details, access the [documentation for `gui.py`](Docs/gui.md).
 
 ### sqlServer.py
 
-`sqlServer.py` definește clasa `SQLServer` pentru interacțiunea cu baza de date. Acest modul gestionează autentificarea și păstrarea informațiilor despre clienți, inclusiv ora ultimei deconectări. Documentația detaliată se găsește [aici](Docs/sqlServer.md).
+`sqlServer.py` defines the `SQLServer` class for database interaction. This module manages authentication and maintains information about clients, including the time of last disconnection. Detailed documentation can be found [here](Docs/sqlServer.md).
 
 ### decoder.py
 
-`decoder.py` implementează clasa `MQTTDecoder` pentru decodificarea pachetelor MQTT. Aceasta interpretează pachetele primite de tip `CONNECT`, `PINGREQ` și `DISCONNECT`. Pentru o explicație detaliată, vizitează [documentația `decoder.py`](Docs/decoder.md).
+`decoder.py` implements the `MQTTDecoder` class for decoding MQTT packets. It interprets received packets of type `CONNECT`, `PINGREQ`, and `DISCONNECT`. For a detailed explanation, visit the [`decoder.py` documentation](Docs/decoder.md).
 
 ### packet_creator.py
 
-`packet_creator.py` conține funcțiile necesare pentru crearea pachetelor MQTT, inclusiv:
-- **`create_connack_packet`**: Creează un pachet de tip `CONNACK` pentru a confirma conexiunea cu clientul.
-- **`create_pingresp_packet`**: Creează un pachet `PINGRESP` pentru a menține sesiunea activă.
-- **`create_disconnect_packet`**: Creează un pachet `DISCONNECT` pentru a informa clientul că a fost deconectat.
+`packet_creator.py` contains the necessary functions for creating MQTT packets, including:
+- **`create_connack_packet`**: Creates a `CONNACK` packet to confirm connection with the client.
+- **`create_pingresp_packet`**: Creates a `PINGRESP` packet to keep the session active.
+- **`create_disconnect_packet`**: Creates a `DISCONNECT` packet to inform the client that it has been disconnected.
 
-Mai multe detalii pot fi găsite în [documentația `packet_creator.py`](Docs/packet_creator.md).
+More details can be found in the [`packet_creator.py` documentation](Docs/packet_creator.md).
